@@ -1,32 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React, { useEffect, useState } from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+
+  const [pokemonNumber, setPokemonNumber] = useState(1)
+  const [pokemonName, setPokemonName] = useState("")
+
+  const incrementar = () => {
+    setPokemonNumber(pokemonNumber + 1)
+    console.log(`Valor antes del render: ${pokemonNumber}`)
+  }
+
+  // para tener el valor actualizado con el render, se usa el useEffect
+  useEffect(() => {
+    console.log(`Valor al actualizar el estado: ${pokemonNumber}`)
+    // aqui llamamos al API
+    // FORMA 1 DE USAR EL FETCH
+
+    // fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}/`)
+    // .then(result => result.json())
+    // .then(data => console.log(data.name)) // si quiero usar "data.name" dentro de todo este componente, hay que crear otro estado, quedando esta linea de la siguiente forma
+    // .then(data => setPokemonName(data.name))
+
+    // FORMA 2 DE USAR EL FETCH
+    searchPokemon(pokemonNumber)
+  },[pokemonNumber])
+  
+  const searchPokemon = async (pokemonNumber) => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}/`)
+    const data = await response.json()
+    setPokemonName(data.name)
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div>
+      <button onClick={incrementar}>Next</button>
+      <div>{pokemonNumber} - {pokemonName}</div>
     </div>
   )
 }
