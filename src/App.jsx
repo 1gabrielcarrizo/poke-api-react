@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Button from './components/Button'
 
 const App = () => {
 
@@ -33,8 +34,10 @@ const App = () => {
 
   return (
     <div>
-      <button onClick={incrementar}>Next</button>
-      <div>{pokemonNumber} - {pokemonName}</div>
+      {/* <button onClick={incrementar}>Next</button>
+      <div>{pokemonNumber} - {pokemonName}</div> */}
+      <Button text="Anterior"/>
+      <Button text="Siguiente"/>
     </div>
   )
 }
