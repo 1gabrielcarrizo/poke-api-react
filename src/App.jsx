@@ -2,45 +2,50 @@ import React, { useEffect, useState } from 'react'
 import Button from './components/Button'
 import './sass/App.scss'
 import { TiArrowLeftOutline, TiArrowRightOutline } from "react-icons/ti";
+import Card from './components/Card';
 
 const App = () => {
 
-  const [pokemonNumber, setPokemonNumber] = useState(1)
+  const [pokemonId, setPokemonId] = useState(1)
   const [pokemonName, setPokemonName] = useState("")
 
   const incrementar = () => {
-    setPokemonNumber(pokemonNumber + 1)
-    console.log(`Valor antes del render: ${pokemonNumber}`)
+    setPokemonId(pokemonId + 1)
   }
 
-  // para tener el valor actualizado con el render, se usa el useEffect
-  useEffect(() => {
-    console.log(`Valor al actualizar el estado: ${pokemonNumber}`)
-    // aqui llamamos al API
-    // FORMA 1 DE USAR EL FETCH
+  const decrementar = () => {
+    pokemonId === 1 ? setPokemonId(1) : setPokemonId(pokemonId - 1)
+  }
 
-    // fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}/`)
-    // .then(result => result.json())
-    // .then(data => console.log(data.name)) // si quiero usar "data.name" dentro de todo este componente, hay que crear otro estado, quedando esta linea de la siguiente forma
-    // .then(data => setPokemonName(data.name))
-
-    // FORMA 2 DE USAR EL FETCH
-    searchPokemon(pokemonNumber)
-  },[pokemonNumber])
-  
-  const searchPokemon = async (pokemonNumber) => {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}/`)
+  const searchPokemon = async (pokemonId) => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
     const data = await response.json()
     setPokemonName(data.name)
   }
 
+  // para tener el valor actualizado con el render, se usa el useEffect
+  useEffect(() => {
+    console.log(`Valor al actualizar el estado: ${pokemonId}`)
+    // aqui llamamos al API
+    // FORMA 2 DE USAR EL FETCH
+    searchPokemon(pokemonId)
+  },[pokemonId])
+  
+
   return (
     <>
-      {/* <button onClick={incrementar}>Next</button>
-      <div>{pokemonNumber} - {pokemonName}</div> */}
+    <div className="cards__container">
+      <Card/>
+    </div>
+    
       <div className='buttons-container'>
-        <Button icon={<TiArrowLeftOutline/>}/>
-        <Button icon={<TiArrowRightOutline/>}/>
+        <Button 
+          icon={<TiArrowLeftOutline/>}
+          handleClick={decrementar}/>
+          {`${pokemonId} - ${pokemonName}`}
+        <Button 
+        icon={<TiArrowRightOutline/>}
+        handleClick={incrementar}/>
       </div>
     </>
   )

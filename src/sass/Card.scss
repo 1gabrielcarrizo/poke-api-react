@@ -1,0 +1,39 @@
+@use 'variables' as v;
+
+.card{
+    width: 200px;
+    height: 250px;
+    border-radius: 15px;
+    background-color: v.$blue;
+    box-shadow: 3px 3px 10px;
+    padding: 48px 12px 12px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    &__name{
+        background-color: v.$red;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 140px;
+        color: v.$white;
+    }
+
+    &__circle{
+        background: linear-gradient(to left, v.$gradient3, v.$gradient4);
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        position: absolute;
+        right: 50%;
+        bottom: 50%;
+        transform: translate(50%,50%);
+    }
+
+    &__img{
+        position: absolute;
+        z-index: 1;
+    }
+}

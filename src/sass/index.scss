@@ -1,0 +1,12 @@
+@use './variables' as v;
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background: linear-gradient(to left, v.$gradient5, v.$gradient6);
+}
