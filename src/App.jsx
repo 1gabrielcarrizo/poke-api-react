@@ -7,7 +7,8 @@ import Card from './components/Card';
 const App = () => {
 
   const [pokemonId, setPokemonId] = useState(1)
-  const [pokemonName, setPokemonName] = useState("")
+  const [pokemonEvolutions, setpokemonEvolutions] = useState([])
+
 
   const incrementar = () => {
     setPokemonId(pokemonId + 1)
@@ -17,37 +18,62 @@ const App = () => {
     pokemonId === 1 ? setPokemonId(1) : setPokemonId(pokemonId - 1)
   }
 
-  const searchPokemon = async (pokemonId) => {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
+  // buscar evoluciones por ID
+  const getEvolution = async (pokemonId) => {
+    const response = await fetch(`https://pokeapi.co/api/v2/evolution-chain/${pokemonId}/`)
     const data = await response.json()
-    setPokemonName(data.name)
+
+    let pokemonEvolutionsArray = []
+
+    let pokemonLv1 = data.chain.species.name
+    let pokemonLv1Img = await getPokemonImg(pokemonLv1)
+    pokemonEvolutionsArray.push([pokemonLv1, pokemonLv1Img])
+
+    if(data.chain.evolves_to.length !== 0){
+      let pokemonLv2 = data.chain.evolves_to[0].species.name
+      let pokemonLv2Img = await getPokemonImg(pokemonLv2)
+      pokemonEvolutionsArray.push([pokemonLv2, pokemonLv2Img])
+
+      if(data.chain.evolves_to[0].evolves_to.length !== 0){
+        let pokemonLv3 = data.chain.evolves_to[0].evolves_to[0].species.name
+        let pokemonLv3Img = await getPokemonImg(pokemonLv3)
+        pokemonEvolutionsArray.push([pokemonLv3, pokemonLv3Img])
+      }
+    }
+    setpokemonEvolutions(pokemonEvolutionsArray)
   }
 
-  // para tener el valor actualizado con el render, se usa el useEffect
+  // buscar imagen por nombre
+  const getPokemonImg = async (pokeName) => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}/`)
+    const data = await response.json()
+    return data.sprites.other["official-artwork"].front_default // los guiones medios se los escribe de esta forma
+  }
+
   useEffect(() => {
-    console.log(`Valor al actualizar el estado: ${pokemonId}`)
-    // aqui llamamos al API
-    // FORMA 2 DE USAR EL FETCH
-    searchPokemon(pokemonId)
-  },[pokemonId])
+    getEvolution(pokemonId)
+  }, [pokemonId])
   
 
   return (
-    <>
-    <div className="cards__container">
-      <Card/>
+    <div className='main-container'>
+    <div className={`cards__container card${pokemonEvolutions.length}`}>
+      {
+        pokemonEvolutions.map(pokemon => 
+        <Card key={pokemon[0]} name={pokemon[0]} img={pokemon[1]}/>)
+      }
     </div>
     
       <div className='buttons-container'>
         <Button 
           icon={<TiArrowLeftOutline/>}
           handleClick={decrementar}/>
-          {`${pokemonId} - ${pokemonName}`}
+          {/* {pokemonName} */}
         <Button 
         icon={<TiArrowRightOutline/>}
         handleClick={incrementar}/>
       </div>
-    </>
+    </div>
   )
 }
 
