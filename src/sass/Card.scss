@@ -17,8 +17,10 @@
         position: absolute;
         top: 0;
         right: 0;
-        width: 140px;
+        width: 100%;
         color: v.$white;
+        padding-top: 8px;
+        padding-bottom: 8px;
     }
 
     &__circle{
@@ -35,6 +37,6 @@
     &__img{
         position: absolute;
         z-index: 1;
-        width: 100%;
+        width: 90%;
     }
 }

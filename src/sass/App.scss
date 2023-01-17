@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 2em;
 }
 
 .buttons-container{
@@ -23,11 +23,13 @@
     position: absolute;
     left: 0;
     z-index: 3;
-    transform: rotate(-5deg) translateY(10px);
+    transform: rotate(-7deg) translateY(10px);
     transition: 100ms;
 
     &:hover{
-        transform: rotate(-5deg) translateY(0);
+        transform: rotate(-7deg) translateY(0);
+        z-index: 10;
+
     }
 }
 
@@ -39,6 +41,8 @@
 
     &:hover{
         transform: translateY(-10px);
+        z-index: 10;
+
     }
 }
 
@@ -46,10 +50,12 @@
     position: absolute;
     left: 300px;
     z-index: 1;
-    transform: rotate(5deg) translateY(10px);
+    transform: rotate(7deg) translateY(10px);
 
     &:hover{
-        transform: rotate(5deg) translateY(0);
+        transform: rotate(7deg) translateY(0);
+        z-index: 10;
+
     }
 }
 
@@ -58,5 +64,5 @@
 }
 
 .card2{
-    transform: rotate(4deg) translate(70px);
+    transform: rotate(2.5deg) translate(70px);
 }
