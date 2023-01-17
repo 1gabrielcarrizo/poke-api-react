@@ -1,8 +1,10 @@
+import '../sass/Button.scss'
 
-
-const Button = ({text}) => {
+const Button = ({icon}) => {
   return (
-    <button>{text}</button>
+    <div className='button__box'>
+      <button className='button'>{icon}</button>
+    </div>
   )
 }
 
