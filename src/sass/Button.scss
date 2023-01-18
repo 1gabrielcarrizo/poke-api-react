@@ -1,7 +1,7 @@
 @use 'variables' as v;
 
 .button{
-    background-color: v.$red;
+    background: linear-gradient(v.$gradient9, v.$gradient10);
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -9,16 +9,16 @@
     cursor: pointer;
     color: v.$white;
     font-size: 32px;
+    line-height: 30px;
 
     &__box{
-        // border: 2px solid sandybrown;
         position: relative;
     }
 
     &__shadow{
         width: 60px;
         height: 60px;
-        background-color: v.$blue;
+        background: linear-gradient(v.$gradient7, v.$gradient8);
         border-radius: 50%;
         position: absolute;
         top: 5px;

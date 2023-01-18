@@ -4,7 +4,7 @@
     width: 200px;
     height: 250px;
     border-radius: 15px;
-    background-color: v.$blue;
+    background: linear-gradient(v.$gradient7, v.$gradient8);
     box-shadow: 3px 3px 10px;
     padding: 48px 12px 12px;
     cursor: pointer;
@@ -12,7 +12,7 @@
     overflow: hidden;
 
     &__name{
-        background-color: v.$red;
+        background: linear-gradient(v.$gradient9, v.$gradient10);
         text-align: center;
         position: absolute;
         top: 0;

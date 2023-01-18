@@ -3,6 +3,7 @@ import Button from './components/Button'
 import './sass/App.scss'
 import { TiArrowLeftOutline, TiArrowRightOutline } from "react-icons/ti";
 import Card from './components/Card';
+import Container from 'react-bootstrap/Container';
 
 const App = () => {
 
@@ -29,12 +30,12 @@ const App = () => {
     let pokemonLv1Img = await getPokemonImg(pokemonLv1)
     pokemonEvolutionsArray.push([pokemonLv1, pokemonLv1Img])
 
-    if(data.chain.evolves_to.length !== 0){
+    if (data.chain.evolves_to.length !== 0) {
       let pokemonLv2 = data.chain.evolves_to[0].species.name
       let pokemonLv2Img = await getPokemonImg(pokemonLv2)
       pokemonEvolutionsArray.push([pokemonLv2, pokemonLv2Img])
 
-      if(data.chain.evolves_to[0].evolves_to.length !== 0){
+      if (data.chain.evolves_to[0].evolves_to.length !== 0) {
         let pokemonLv3 = data.chain.evolves_to[0].evolves_to[0].species.name
         let pokemonLv3Img = await getPokemonImg(pokemonLv3)
         pokemonEvolutionsArray.push([pokemonLv3, pokemonLv3Img])
@@ -53,27 +54,27 @@ const App = () => {
   useEffect(() => {
     getEvolution(pokemonId)
   }, [pokemonId])
-  
+
 
   return (
-    <div className='main-container'>
-    <div className={`cards__container card${pokemonEvolutions.length}`}>
-      {
-        pokemonEvolutions.map(pokemon => 
-        <Card key={pokemon[0]} name={pokemon[0]} img={pokemon[1]}/>)
-      }
-    </div>
-    
-      <div className='buttons-container'>
-        <Button 
-          icon={<TiArrowLeftOutline/>}
-          handleClick={decrementar}/>
-          {/* {pokemonName} */}
-        <Button 
-        icon={<TiArrowRightOutline/>}
-        handleClick={incrementar}/>
+    <Container className='main-container'>
+      <div className={`cards__container card${pokemonEvolutions.length}`}>
+        {
+          pokemonEvolutions.map(pokemon =>
+            <Card key={pokemon[0]} name={pokemon[0]} img={pokemon[1]} />)
+        }
       </div>
-    </div>
+
+      <div className='buttons-container'>
+        <Button
+          icon={<TiArrowLeftOutline />}
+          handleClick={decrementar} />
+        {/* {pokemonName} */}
+        <Button
+          icon={<TiArrowRightOutline />}
+          handleClick={incrementar} />
+      </div>
+    </Container>
   )
 }
 
